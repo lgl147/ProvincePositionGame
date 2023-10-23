@@ -137,7 +137,7 @@ function init() {
     fill: "white",
   });
   gameover.value = false;
-  currentIndex.value = 33;
+  currentIndex.value = 0;
   gaming.value = false;
 }
 
