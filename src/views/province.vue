@@ -16,8 +16,12 @@
     :model-value="gameover"
     class="myAlert"
     color="success"
-    title="完成度100%!"
-  ></v-alert>
+    title="complete!"
+  >
+    <div>正确: {{ right }} 个</div>
+    <div>错误: {{ err }} 个</div>
+    <div v-if="err == 0">太牛了, 竟然全对!</div>
+  </v-alert>
   <v-footer app class="text-overline" height="24">
     <v-spacer></v-spacer>
     点击开始, 即可将中国34个省级行政区随机排列, 根据提示点击地图上对应的区块,
@@ -80,10 +84,13 @@ function LoadMap() {
           if (adcode) {
             let color = "green";
             if (gaming.value) {
-              color =
-                gameArr.value[currentIndex.value].adcode == adcode
-                  ? "green"
-                  : "red";
+              if (gameArr.value[currentIndex.value].adcode == adcode) {
+                color = "green";
+                right.value++;
+              } else {
+                color = "red";
+                err.value++;
+              }
             }
             // 重置行政区样式
             disList.setStyles({
@@ -93,7 +100,7 @@ function LoadMap() {
             });
 
             // 如果错误就不在进行下一题, 也可考虑做成继续的, 做完之后统计错题etc.
-            if (color == "red" || !gaming.value) return;
+            if (!gaming.value) return;
 
             if (currentIndex.value >= gameArr.value.length - 1) {
               console.log(currentIndex.value, gameArr.value.length);
@@ -131,11 +138,15 @@ function SearchDistricts(AMap: any) {
 
 let currentIndex = ref(0);
 let gameArr = ref<any>();
+let right = ref(0);
+let err = ref(0);
 
 function init() {
   disList.setStyles({
     fill: "white",
   });
+  right.value = 0;
+  err.value = 0;
   gameover.value = false;
   currentIndex.value = 0;
   gaming.value = false;
