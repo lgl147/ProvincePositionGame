@@ -62,9 +62,9 @@ function LoadMap() {
       console.log(disList, disList.getDistricts());
 
       map = new AMap.Map("map", {
-        center: [105.5, 34.5],
+        center: [151, 29],
         showIndoorMap: false,
-        zoom: 4.5,
+        zoom: 2.5,
         defaultCursor: "pointer",
         layers: [disList],
       });
