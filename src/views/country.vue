@@ -3,14 +3,6 @@
   <v-alert :model-value="gaming" class="myAlert">
     <template #title>请找到: {{ gameArr[currentIndex].name }} </template>
     {{ currentIndex + 1 }} / {{ gameArr.length }}
-    <span
-      class="text-caption"
-      v-if="
-        gameArr[currentIndex].name == '澳门特别行政区' ||
-        gameArr[currentIndex].name == '香港特别行政区'
-      "
-      >国土幅员辽阔, 可活用缩放功能, 在南方细细寻找(虚线标识的区域)</span
-    >
   </v-alert>
   <v-alert
     :model-value="gameover"
@@ -25,8 +17,9 @@
   <v-footer app class="text-overline" height="24">
     <span></span>
     <v-spacer></v-spacer>
-    点击开始, 即可将全球随机排列, 根据提示点击地图上对应的区块, 正确为绿色,
-    错误则为红色
+    国家列表来自<a href="https://github.com/umpirsky/country-list/tree/master"
+      >umpirsky/country-list</a
+    >, 但排除了港澳台, 其他未做修改
   </v-footer>
 </template>
 
@@ -36,6 +29,7 @@ import { onMounted, ref } from "vue";
 let store = useAppStore();
 import { watch } from "vue";
 import { shuffle } from "@/plugins/utils";
+import country from "@/plugins/country";
 
 let disList: any;
 let gaming = ref(false);
@@ -46,7 +40,7 @@ watch(
   () => store.currentGame,
   (val: any) => {
     console.log(val);
-    if (val == "province") {
+    if (val == "country") {
       gameStart();
     }
   }
@@ -81,13 +75,13 @@ function LoadMap() {
         var px = ev.pixel;
         var props = disList.getDistrictByContainerPos(px);
         if (props) {
-          var SOC = props.SOC;
+          var name = props.NAME_CHN;
           console.log(props);
 
-          if (SOC) {
+          if (name) {
             let color = "green";
             if (gaming.value) {
-              if (gameArr.value[currentIndex.value].SOC == SOC) {
+              if (gameArr.value[currentIndex.value].name == name) {
                 color = "green";
                 right.value++;
               } else {
@@ -98,7 +92,7 @@ function LoadMap() {
             // 重置行政区样式
             disList.setStyles({
               fill: function (props: any) {
-                return props.SOC == SOC ? color : "white";
+                return props.NAME_CHN == name ? color : "white";
               },
             });
 
@@ -141,7 +135,8 @@ function init() {
 function gameStart() {
   init();
   gaming.value = true;
-  gameArr.value = shuffle(store.province);
+  gameArr.value = shuffle(country);
+  console.log(gameArr.value);
 }
 onMounted(() => {
   LoadMap();

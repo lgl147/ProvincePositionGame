@@ -31,10 +31,10 @@ let routes = ref<any>([
     name: "province",
     text: "省份",
   },
-  // {
-  //   name: "country",
-  //   text: "国家",
-  // },
+  {
+    name: "country",
+    text: "国家",
+  },
 ]);
 function game() {
   if (store.currentGame) store.gameStart(null);
