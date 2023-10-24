@@ -1,6 +1,6 @@
 <template>
   <v-app-bar>
-    <!-- <v-btn
+    <v-btn
       color="primary"
       :variant="
         router.currentRoute.value.name == item.name ? 'elevated' : 'outlined'
@@ -10,7 +10,7 @@
       v-for="(item, index) in routes"
       :key="index"
       >{{ item.text }}</v-btn
-    > -->
+    >
     <v-spacer></v-spacer>
     <v-btn @click="game" color="primary"
       >{{ store.currentGame ? "重置" : "开始" }}
@@ -31,10 +31,10 @@ let routes = ref<any>([
     name: "province",
     text: "省份",
   },
-  {
-    name: "country",
-    text: "国家",
-  },
+  // {
+  //   name: "country",
+  //   text: "国家",
+  // },
 ]);
 function game() {
   if (store.currentGame) store.gameStart(null);

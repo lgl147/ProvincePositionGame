@@ -6,6 +6,7 @@ export const useAppStore = defineStore("app", {
     //
     map: null,
     province: [],
+    country: [],
     currentGame: null,
   }),
   actions: {
@@ -14,6 +15,9 @@ export const useAppStore = defineStore("app", {
     },
     setProvinces(value: any) {
       this.province = value || null;
+    },
+    setCountry(value: any) {
+      this.country = value || null;
     },
     gameStart(value: any) {
       this.currentGame = value || null;

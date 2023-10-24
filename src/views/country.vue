@@ -25,8 +25,8 @@
   <v-footer app class="text-overline" height="24">
     <span></span>
     <v-spacer></v-spacer>
-    点击开始, 即可将中国34个省级行政区随机排列, 根据提示点击地图上对应的区块,
-    正确为绿色, 错误则为红色
+    点击开始, 即可将全球随机排列, 根据提示点击地图上对应的区块, 正确为绿色,
+    错误则为红色
   </v-footer>
 </template>
 
@@ -58,14 +58,14 @@ function LoadMap() {
     version: "2.0",
   })
     .then((AMap: any) => {
-      SearchDistricts(AMap);
-
-      disList = new AMap.DistrictLayer.Country({
+      disList = new AMap.DistrictLayer.World({
         zIndex: 10,
         styles: {
           fill: "white",
         },
       });
+
+      console.log(disList, disList.getDistricts());
 
       map = new AMap.Map("map", {
         center: [105.5, 34.5],
@@ -81,12 +81,13 @@ function LoadMap() {
         var px = ev.pixel;
         var props = disList.getDistrictByContainerPos(px);
         if (props) {
-          var adcode = props.adcode;
+          var SOC = props.SOC;
+          console.log(props);
 
-          if (adcode) {
+          if (SOC) {
             let color = "green";
             if (gaming.value) {
-              if (gameArr.value[currentIndex.value].adcode == adcode) {
+              if (gameArr.value[currentIndex.value].SOC == SOC) {
                 color = "green";
                 right.value++;
               } else {
@@ -97,7 +98,7 @@ function LoadMap() {
             // 重置行政区样式
             disList.setStyles({
               fill: function (props: any) {
-                return props.adcode == adcode ? color : "white";
+                return props.SOC == SOC ? color : "white";
               },
             });
 
@@ -118,24 +119,6 @@ function LoadMap() {
     .catch((e: Event) => {
       console.error(e); //加载错误提示
     });
-}
-function SearchDistricts(AMap: any) {
-  AMap.plugin("AMap.DistrictSearch", function () {
-    var districtSearch = new AMap.DistrictSearch({
-      // 关键字对应的行政区级别，country表示国家
-      level: "province",
-      //  显示下级行政区级数，1表示返回下一级行政区
-      subdistrict: 1,
-    });
-    // 搜索所有省/直辖市信息
-    districtSearch.search("中国", function (status: any, result: any) {
-      // 查询成功时，result即为对应的行政区信息
-      console.log(status);
-      if (result.info == "OK") {
-        store.setProvinces(result.districtList[0].districtList);
-      }
-    });
-  });
 }
 
 let currentIndex = ref(0);

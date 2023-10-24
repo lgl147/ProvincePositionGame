@@ -5,13 +5,18 @@ const routes = [
   {
     path: "/",
     component: () => import("@/layouts/default/Default.vue"),
-    redirect: { name: "province" },
     children: [
       {
-        path: "province",
+        path: "",
         name: "province",
         component: () =>
           import(/* webpackChunkName: "home" */ "@/views/province.vue"),
+      },
+      {
+        path: "country",
+        name: "country",
+        component: () =>
+          import(/* webpackChunkName: "home" */ "@/views/country.vue"),
       },
     ],
   },
