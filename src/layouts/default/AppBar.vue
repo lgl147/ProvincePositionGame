@@ -16,7 +16,7 @@
       >{{ store.currentGame ? "重置" : "开始" }}
       <v-icon>mdi-play-circle</v-icon></v-btn
     >
-    <v-btn @click="show">显示</v-btn>
+    <!-- <v-btn @click="show">显示</v-btn> -->
   </v-app-bar>
 </template>
 
@@ -43,7 +43,7 @@ function game() {
     store.gameStart(router.currentRoute.value.name);
   });
 }
-function show() {
-  console.log(store.map.getCenter(), store.map.getZoom());
-}
+// function show() {
+//   console.log(store.map.getCenter(), store.map.getZoom());
+// }
 </script>
