@@ -1,10 +1,13 @@
-# 简介(Intro)
+# essentials
 
 点击开始, 即可将中国 34 个省级行政区随机排列, 根据提示点击地图上对应的区块, 正确为绿色, 错误则为红色
 
 ![预览](https://pic4.58cdn.com.cn/nowater/webim/big/n_v2d0e8ba5bd394481388acd8614c564f60.png)
 
-# essentials
+```
+2023-10-24 10:49
+更新了全球地图, 但难度系数较高
+```
 
 ## Project setup
 
