@@ -17,7 +17,9 @@
   <v-footer app class="text-overline" height="24">
     <span></span>
     <v-spacer></v-spacer>
-    国家列表来自<a href="https://github.com/umpirsky/country-list/tree/master"
+    国家列表来自<a
+      href="https://github.com/umpirsky/country-list/tree/master"
+      target="_blank"
       >umpirsky/country-list</a
     >, 但排除了港澳台, 其他未做修改
   </v-footer>
@@ -121,7 +123,7 @@ let right = ref(0);
 let err = ref(0);
 
 function init() {
-  map.setZoomAndCenter(4.5, [105.5, 34.5]);
+  map.setZoomAndCenter(2.5, [151, 29]);
   disList.setStyles({
     fill: "white",
   });
